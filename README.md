@@ -2,7 +2,7 @@
 
 ## Summary
 
-This sample projects demonstrates an issue with hot reload and dart FFI.
+This sample projects demonstrates an issue (https://github.com/flutter/flutter/issues/59061) with hot reload and dart FFI.
 
 - The project creates an isoloate
 - The isolate calls a long running C function `start` via FFI
