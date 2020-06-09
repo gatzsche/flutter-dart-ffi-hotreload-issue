@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:flutter_dart_ffi_hotreload_issue/flutter_dart_ffi_hotreload_issue.dart';
 
 void main() {
@@ -14,32 +11,11 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+  bool _isStarted = false;
 
   @override
   void initState() {
     super.initState();
-    initPlatformState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await FlutterDartFfiHotreloadIssue.platformVersion;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
   }
 
   @override
@@ -47,10 +23,43 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('Hot Reload Issue Demo'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            children: <Widget>[
+              Expanded(child: Container()),
+              Padding(
+                  padding: EdgeInsets.all(30),
+                  child: Text(
+                    _isStarted
+                        ? 'Running ... => Hot Reload is broken. We need a callback that informs us *before* an hot reload is exectued. In that case we could call stop and interrupt the long running process.'
+                        : 'Stopped ... => Hot Reload is Working',
+                    style: TextStyle(
+                        color: _isStarted ? Colors.red : Colors.green[600],
+                        fontWeight: FontWeight.bold),
+                  )),
+              Expanded(child: Container()),
+              Expanded(
+                  child: FlatButton(
+                      color: Colors.cyan,
+                      onPressed: () async {
+                        if (!_isStarted) {
+                          await FlutterDartFfiHotreloadIssue.start();
+                        } else {
+                          await FlutterDartFfiHotreloadIssue.stop();
+                        }
+
+                        setState(() {
+                          _isStarted = !_isStarted;
+                        });
+
+                        /// Here the long running process is started
+                      },
+                      child: Text(_isStarted ? 'Stop' : 'Start'))),
+              Expanded(child: Container()),
+            ],
+          ),
         ),
       ),
     );
