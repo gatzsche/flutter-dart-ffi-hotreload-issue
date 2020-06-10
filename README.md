@@ -15,7 +15,7 @@ Once stopped hot reloading will work as expected.
 
 ## Existing Solutions
 
-[There is already a `reassamble` method](https://stackoverflow.com/questions/55281077/how-to-detect-hot-reload-inside-the-code-of-a-flutter-app) on `State` class which can be overridden.
+[There is already a `reassemble` method](https://stackoverflow.com/questions/55281077/how-to-detect-hot-reload-inside-the-code-of-a-flutter-app) on `State` class which can be overridden.
 But this method informs only **after** a reload has been performed, note before.
 
 ## Example App
