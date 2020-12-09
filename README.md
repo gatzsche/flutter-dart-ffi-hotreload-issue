@@ -20,6 +20,7 @@ But this method informs only **after** a reload has been performed, note before.
 
 ## Example App
 
+- On Mac: Start Xcode Simulator App
 - Open a terminal 
 - Type `flutter pub get`
 - Type `cd example`
