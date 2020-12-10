@@ -20,7 +20,10 @@ But this method informs only **after** a reload has been performed, note before.
 
 ## Example App
 
-- Open a terminal and type `cd example`
+- On Mac: Start Xcode Simulator App
+- Open a terminal 
+- Type `flutter pub get`
+- Type `cd example`
 - Type `flutter run`
 - In the console: Press `Shift + r` -> Hot restart will work
 - In the app: Click the `Start` button and start a long running isolate
