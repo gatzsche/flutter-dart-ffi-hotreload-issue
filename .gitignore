@@ -20,3 +20,5 @@ doc/api/
 *.js.deps
 *.js.map
 .cxx
+.DS_Store
+example/ios/Podfile.lock
